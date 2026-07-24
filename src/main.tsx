@@ -6,11 +6,14 @@ import App from './App.tsx'
 import { store } from './store/store'
 import { Provider } from 'react-redux'
 
+import { Toaster } from "@/components/ui/sonner";
+
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <Provider store={store}>
       <App />
+      <Toaster />
     </Provider>
   </StrictMode>,
 )

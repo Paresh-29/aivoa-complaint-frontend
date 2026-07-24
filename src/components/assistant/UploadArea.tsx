@@ -4,6 +4,7 @@ import { setComplaint, setLoading } from "@/store/complaintSlice";
 import type { RootState } from "@/store/store";
 import { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { toast } from "sonner";
 
 export default function UploadArea() {
   const dispatch = useDispatch();
@@ -27,10 +28,10 @@ export default function UploadArea() {
     } catch (error) {
       console.error(error);
 
-      // replace this with a toast later.
-      alert("Failed to upload complaint.");
+      toast.error("Failed to upload complaint.");
     } finally {
       dispatch(setLoading(false));
+      toast.success("Complaint uploaded successfully.");
     }
   }
   return (

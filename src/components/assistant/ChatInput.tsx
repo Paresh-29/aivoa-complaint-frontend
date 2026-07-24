@@ -5,9 +5,12 @@ import { useSelector, useDispatch } from "react-redux";
 import { type RootState } from "@/store/store";
 import { sendAssistantMessage } from "@/api/assistant";
 import { setComplaint } from "@/store/complaintSlice";
+import { toast } from "sonner";
 
 export default function ChatInput() {
   const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false);
+
 
   const complaint = useSelector(
     (state: RootState) => state.complaint.complaint
@@ -18,14 +21,25 @@ export default function ChatInput() {
   async function handleSend() {
     if (!message.trim()) return;
 
-    const updatedComplaint = await sendAssistantMessage({
-      complaint,
-      message,
-    });
+    setLoading(true);
 
-    dispatch(setComplaint(updatedComplaint));
+    try {
 
-    setMessage("");
+      const updatedComplaint = await sendAssistantMessage({
+        complaint,
+        message,
+      });
+
+      dispatch(setComplaint(updatedComplaint));
+      setMessage("");
+
+      toast.success("Complaint updated successfully.");
+    } catch {
+      toast.error("Failed to update complaint.");
+    } finally {
+      setLoading(false);
+    }
+
   }
   return (
     <div className="space-y-4">
@@ -36,8 +50,8 @@ export default function ChatInput() {
         className="min-h-28 resize-none"
       />
 
-      <Button className="w-full" onClick={handleSend} disabled={!message.trim()}>
-        Send Message
+      <Button className="w-full" onClick={handleSend} disabled={!message.trim() || loading}>
+        {loading ? "Updating..." : "Send Message"}
       </Button>
     </div>
   );

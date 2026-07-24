@@ -8,12 +8,10 @@ import AIRiskAssessment from "./AIRiskAssessment";
 
 import { useSelector } from "react-redux";
 import type { RootState } from "@/store/store";
+import CommitButton from "./CommitButton";
 
 export default function ComplaintPanel() {
   const complaint = useSelector((state: RootState) => state.complaint.complaint);
-  if (!complaint) {
-    // Form still waiting for AI
-  }
 
   return (
     <Card className="h-[90vh] overflow-y-auto">
@@ -33,7 +31,7 @@ export default function ComplaintPanel() {
               <Input
                 id="complaint-source"
                 readOnly
-                placeholder="Awaiting AI extraction..."
+                value={complaint?.complaint_source ?? "Awaiting AI extraction..."}
               />
             </div>
 
@@ -45,8 +43,7 @@ export default function ComplaintPanel() {
               <Input
                 id="customer-name"
                 readOnly
-                // placeholder="Awaiting AI extraction..."
-                value={complaint?.customer_name ?? ""}
+                value={complaint?.customer_name ?? "Awaiting AI extraction..."}
               />
             </div>
           </div>
@@ -65,8 +62,7 @@ export default function ComplaintPanel() {
               <Input
                 id="product-name"
                 readOnly
-                // placeholder="Awaiting AI extraction..."
-                value={complaint?.product_name ?? ""}
+                value={complaint?.product_name ?? "Awaiting AI extraction..."}
               />
             </div>
 
@@ -78,8 +74,7 @@ export default function ComplaintPanel() {
               <Input
                 id="product-strength"
                 readOnly
-                placeholder="Awaiting AI extraction..."
-                // value={complaint?.product_strength ?? ""}
+                value={complaint?.product_strength ?? "Awaiting AI extraction..."}
               />
             </div>
 
@@ -91,8 +86,7 @@ export default function ComplaintPanel() {
               <Input
                 id="batch-number"
                 readOnly
-                // placeholder="Awaiting AI extraction..."
-                value={complaint?.batch_number ?? ""}
+                value={complaint?.batch_number ?? "Awaiting AI extraction..."}
               />
             </div>
 
@@ -104,8 +98,7 @@ export default function ComplaintPanel() {
               <Input
                 id="affected-quantity"
                 readOnly
-                // placeholder="Awaiting AI extraction..."
-                value={complaint?.quantity_affected ?? ""}
+                value={complaint?.quantity_affected ?? "Awaiting AI extraction..."}
               />
             </div>
 
@@ -117,8 +110,7 @@ export default function ComplaintPanel() {
               <Input
                 id="manufacturing-date"
                 readOnly
-                // placeholder="Awaiting AI extraction..."
-                value={complaint?.manufacturing_date ?? ""}
+                value={complaint?.manufacturing_date ?? "Awaiting AI extraction..."}
               />
             </div>
 
@@ -130,8 +122,7 @@ export default function ComplaintPanel() {
               <Input
                 id="expiry-date"
                 readOnly
-                // placeholder="Awaiting AI extraction..."
-                value={complaint?.expiry_date ?? ""}
+                value={complaint?.expiry_date ?? "Awaiting AI extraction..."}
               />
             </div>
           </div>
@@ -150,8 +141,7 @@ export default function ComplaintPanel() {
               <Input
                 id="complaint-type"
                 readOnly
-                // placeholder="Awaiting AI extraction..."
-                value={complaint?.complaint_type ?? ""}
+                value={complaint?.complaint_type ?? "Awaiting AI extraction..."}
               />
             </div>
 
@@ -163,8 +153,7 @@ export default function ComplaintPanel() {
               <Textarea
                 id="complaint-description"
                 readOnly
-                // placeholder="Awaiting AI extraction..."
-                value={complaint?.complaint_description ?? ""}
+                value={complaint?.complaint_description ?? "Awaiting AI extraction..."}
                 className="min-h-32 resize-none"
               />
             </div>
@@ -182,7 +171,7 @@ export default function ComplaintPanel() {
               <Input
                 id="severity"
                 readOnly
-                value={complaint?.severity ?? ""}
+                value={complaint?.severity ?? "Awaiting AI extraction..."}
               />
             </div>
 
@@ -192,7 +181,7 @@ export default function ComplaintPanel() {
               <Input
                 id="priority"
                 readOnly
-                value={complaint?.priority ?? ""}
+                value={complaint?.priority ?? "Awaiting AI extraction..."}
                 placeholder="Awaiting AI analysis..."
               />
             </div>
@@ -208,6 +197,8 @@ export default function ComplaintPanel() {
             />
           )
         }
+
+        {complaint && <CommitButton />}
       </CardContent>
     </Card>
   )
